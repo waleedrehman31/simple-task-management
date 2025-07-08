@@ -27,15 +27,19 @@
 
     <div class="flex flex-wrap gap-2 mt-5">
         @if (!$task->is_completed)
-        <button wire:click="markAsComplete({{ $task->id }})"
+        <button wire:click="markAsComplete({{ $task->id }})" wire:loading.attr="disabled"
+            wire:target="markAsComplete({{ $task->id }})"
             class="flex-1 py-2 px-3 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs font-semibold transition shadow-sm">
-            Mark Complete
+            <span wire:loading.remove wire:target="markAsComplete({{ $task->id }})">Mark Complete</span>
+            <span wire:loading.inline wire:target="markAsComplete({{ $task->id }})">Marking...</span>
         </button>
+
         @else
         <span
             class="flex-1 py-2 px-3 bg-green-100 text-green-700 rounded-lg text-xs font-semibold text-center cursor-not-allowed">
             Completed
-        </span> @endif
+        </span>
+        @endif
 
         <button @click="$dispatch('open-edit-task-modal', { id: {{ $task->id }} })"
             class="py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg text-sm font-medium transition">
@@ -43,8 +47,9 @@
         </button>
         <button
             class="flex-1 py-2 px-3 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs font-semibold transition shadow-sm"
-            wire:click="delete({{ $task->id }})">
-            Delete
+            wire:click="delete({{ $task->id }})" wire:loading.attr="disabled" wire:target="delete({{ $task->id }})">
+            <span wire:loading.remove wire:target="delete({{ $task->id }})">Delete</span>
+            <span wire:loading.inline wire:target="delete({{ $task->id }})">Deleting...</span>
         </button>
     </div>
 </div>

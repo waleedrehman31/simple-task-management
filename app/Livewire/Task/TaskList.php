@@ -7,72 +7,50 @@ use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Illuminate\Support\Facades\Log;
+use Livewire\WithPagination;
 
 #[Title('Tasks List')]
 class TaskList extends Component
 {
+    use WithPagination;
+
+    protected $paginationTheme = 'tailwind';
+
     public $search = '';
     public $statusFilter = '';
     public $sortOrder = 'desc';
 
-    public $tasks = [];
-
-    public function updatedSearch($value)
+    public function updatedSearch()
     {
-        $this->reset('tasks');
-        if ($value === '') {
-            $this->getTasks();
-        } else {
-            $searchTerm = "%{$value}%";
-            $this->tasks = Task::where('title', 'LIKE', $searchTerm)->orWhere('description', 'like', '%' . $this->search . '%')->get();
-        }
+        $this->resetPage();
+    }
+    public function updatedstatusFilter()
+    {
+        $this->resetPage();
+    }
+    public function updatedsortOrder()
+    {
+        $this->resetPage();
     }
 
-    public function updatedstatusFilter($value)
-    {
-        $this->reset('tasks');
-        if ($value === '') {
-            $this->getTasks();
-        } else {
-            $this->tasks = Task::where('is_completed', $value)->get();
-        }
-    }
-
-    public function updatedsortOrder($value)
-    {
-        $this->reset('tasks');
-        if ($value === '') {
-            $this->getTasks();
-        } else {
-            $this->tasks = Task::orderBy('created_at', $value)->get();
-        }
-    }
-
-    public function boot()
-    {
-        $this->getTasks();
-    }
-
-    #[On('refresh-task-list')]
-    public function getTasks()
-    {
-        $this->tasks = Task::orderBy('created_at', $this->sortOrder)->get();
-    }
 
     public function markAsComplete(Task $task)
     {
-        $task->update([
-            'is_completed' => true,
-        ]);
-        $this->getTasks();
-        session()->flash('success', 'Task completed successfully.');
+        try {
+            $task->update([
+                'is_completed' => true,
+            ]);
+            session()->flash('success', 'Task completed successfully.');
+        } catch (\Exception $e) {
+            Log::error('Task completion failed: ' . $e->getMessage());
+            session()->flash('error', 'Error completing task.');
+        }
     }
 
     public function delete(Task $task)
     {
         try {
             $task->delete();
-            $this->getTasks();
             session()->flash('success', 'Task deleted successfully.');
         } catch (\Exception $e) {
             Log::error('Task deletion failed: ' . $e->getMessage());
@@ -92,9 +70,31 @@ class TaskList extends Component
         session()->flash('success', 'Task created successfully.');
     }
 
+    public function getTasksProperty()
+    {
+        $query = Task::query();
 
+        if ($this->search) {
+            $query->where(function ($q) {
+                $q->where('title', 'like', "%{$this->search}%")
+                    ->orWhere('description', 'like', "%{$this->search}%");
+            });
+        }
+
+        if ($this->statusFilter !== '') {
+            $query->where('is_completed', $this->statusFilter);
+        }
+
+        $query->orderBy('created_at', $this->sortOrder);
+
+        return $query->paginate(12);
+    }
+
+    #[On('refresh-task-list')]
     public function render()
     {
-        return view('livewire.task.task-list');
+        return view('livewire.task.task-list', [
+            'tasks' => $this->tasks,
+        ]);
     }
 }
