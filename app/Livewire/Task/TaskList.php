@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Task;
 
+use App\Jobs\NotifyTaskComplete;
 use App\Models\Task;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -39,7 +40,9 @@ class TaskList extends Component
         try {
             $task->update([
                 'is_completed' => true,
+                'completed_at' => now(),
             ]);
+            NotifyTaskComplete::dispatch($task)->delay(now()->addSeconds(2));
             session()->flash('success', 'Task completed successfully.');
         } catch (\Exception $e) {
             Log::error('Task completion failed: ' . $e->getMessage());
