@@ -15,15 +15,18 @@ class TasksImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         try {
+            if (empty($row) || !isset($row['title']) || empty($row['title'])) {
+                throw new \Exception('Missing required title in row.');
+            }
             $task = Task::create([
                 'title' => $row['title'],
                 'description' => $row['description'] ?? null,
-                'completed' => isset($row['completed']) && $row['completed'] == 1,
+                'is_completed' => isset($row['is_completed']) && $row['is_completed'] == 1,
             ]);
 
             if (isset($row['tags'])) {
                 $tags = collect(explode(',', $row['tags']))
-                    ->map(fn ($tag) => trim($tag))
+                    ->map(fn($tag) => trim($tag))
                     ->filter()
                     ->unique();
 
@@ -35,7 +38,7 @@ class TasksImport implements ToModel, WithHeadingRow
 
             return $task;
         } catch (\Exception $e) {
-            Log->error('Task import error: '.$e->getMessage());
+            \Log->error('Task import error: ' . $e->getMessage());
 
             return null;
         }
