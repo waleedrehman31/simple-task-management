@@ -3,4 +3,4 @@
 use App\Livewire\Task\TaskList;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', TaskList::class);
+Route::get('/', TaskList::class)->name('tasks.index');

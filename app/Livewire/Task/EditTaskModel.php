@@ -6,6 +6,7 @@ use App\Models\Tag;
 use App\Models\Task;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Illuminate\Support\Facades\Log;
 
 class EditTaskModel extends Component
 {
@@ -33,16 +34,18 @@ class EditTaskModel extends Component
     public function update()
     {
         $this->validate();
+        try {
+            $task = Task::findOrFail($this->taskId);
+            $task->update($this->all());
 
-        $task = Task::findOrFail($this->taskId);
-        $task->update($this->all());
+            $task->tags()->sync($this->selectedTags);
 
-        $task->tags()->sync($this->selectedTags);
-
-        $this->dispatch('task-updated');
-        $this->dispatch('refresh-task-list');
-
-        session()->flash('success', 'Task updated successfully.');
+            $this->dispatch('task-updated');
+            $this->dispatch('refresh-task-list');
+        } catch (\Exception $e) {
+            Log::error('Task updating failed: ' . $e->getMessage());
+            session()->flash('error', 'Error updating task.');
+        }
     }
 
 

@@ -6,6 +6,7 @@ use App\Models\Tag;
 use Livewire\Component;
 use App\Models\Task;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Log;
 
 class CreateTaskForm extends Component
 {
@@ -22,15 +23,18 @@ class CreateTaskForm extends Component
     {
         $this->validate();
 
-        $task = Task::create($this->all());
-
-        if (!empty($this->selectedTags)) {
-            $task->tags()->attach($this->selectedTags);
+        try {
+            $task = Task::create($this->all());
+            if (!empty($this->selectedTags)) {
+                $task->tags()->attach($this->selectedTags);
+            }
+            $this->reset('title', 'description', 'selectedTags');
+            $this->dispatch('task-created');
+            $this->dispatch('refresh-task-list');
+        } catch (\Exception $e) {
+            Log::error('Task creating failed: ' . $e->getMessage());
+            session()->flash('error', 'Error creating task.');
         }
-
-        $this->reset('title', 'description', 'selectedTags');
-
-        $this->dispatch('refresh-task-list');
     }
 
     public function render()

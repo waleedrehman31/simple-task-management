@@ -6,6 +6,7 @@ use App\Models\Task;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
+use Illuminate\Support\Facades\Log;
 
 #[Title('Tasks List')]
 class TaskList extends Component
@@ -62,15 +63,33 @@ class TaskList extends Component
     {
         $task->update([
             'is_completed' => true,
-            'status' => 'Completed'
         ]);
         $this->getTasks();
+        session()->flash('success', 'Task completed successfully.');
     }
 
     public function delete(Task $task)
     {
-        $task->delete();
-        $this->getTasks();
+        try {
+            $task->delete();
+            $this->getTasks();
+            session()->flash('success', 'Task deleted successfully.');
+        } catch (\Exception $e) {
+            Log::error('Task deletion failed: ' . $e->getMessage());
+            session()->flash('error', 'Error deleting task.');
+        }
+    }
+
+    #[On('task-updated')]
+    public function updateTask()
+    {
+        session()->flash('success', 'Task updated successfully.');
+    }
+
+    #[On('task-created')]
+    public function createTask()
+    {
+        session()->flash('success', 'Task created successfully.');
     }
 
 
