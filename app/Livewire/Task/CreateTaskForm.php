@@ -30,7 +30,7 @@ class CreateTaskForm extends Component
 
         $this->reset('title', 'description', 'selectedTags');
 
-        $this->dispatch('task-created');
+        $this->dispatch('refresh-task-list');
     }
 
     public function render()

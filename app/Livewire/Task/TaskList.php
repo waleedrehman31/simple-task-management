@@ -52,6 +52,7 @@ class TaskList extends Component
         $this->getTasks();
     }
 
+    #[On('refresh-task-list')]
     public function getTasks()
     {
         $this->tasks = Task::orderBy('created_at', $this->sortOrder)->get();
@@ -72,7 +73,7 @@ class TaskList extends Component
         $this->getTasks();
     }
 
-    #[On('task-created')]
+
     public function render()
     {
         return view('livewire.task.task-list');
