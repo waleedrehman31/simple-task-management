@@ -1,8 +1,10 @@
 <div wire:key="{{ $task->id }}"
     class="flex flex-col justify-between bg-white border border-gray-200 rounded-2xl p-5 shadow-sm hover:shadow-lg transition group">
     <div>
+
         <h2 class="text-lg font-bold text-gray-800 mb-1 group-hover:text-blue-600 transition">{{ $task->title }}
         </h2>
+
         <p class="text-sm text-gray-600 mb-2">{{ $task->description }}</p>
 
         <p class="text-sm mb-3">
@@ -23,17 +25,17 @@
             <span class="text-xs text-gray-400">No tags</span>
             @endforelse
         </div>
+
     </div>
 
     <div class="flex flex-wrap gap-2 mt-5">
+
         @if (!$task->is_completed)
-        <button wire:click="markAsComplete({{ $task->id }})" wire:loading.attr="disabled"
-            wire:target="markAsComplete({{ $task->id }})"
-            class="flex-1 py-2 px-3 bg-green-500 hover:bg-green-600 text-white rounded-lg text-xs font-semibold transition shadow-sm">
+        <x-button class="text-xs" variant="success" wire:click="markAsComplete({{ $task->id }})"
+            wire:loading.attr="disabled" wire:target="markAsComplete({{ $task->id }})">
             <span wire:loading.remove wire:target="markAsComplete({{ $task->id }})">Mark Complete</span>
             <span wire:loading.inline wire:target="markAsComplete({{ $task->id }})">Marking...</span>
-        </button>
-
+        </x-button>
         @else
         <span
             class="flex-1 py-2 px-3 bg-green-100 text-green-700 rounded-lg text-xs font-semibold text-center cursor-not-allowed">
@@ -41,15 +43,15 @@
         </span>
         @endif
 
-        <button @click="$dispatch('open-edit-task-modal', { id: {{ $task->id }} })"
-            class="py-2 px-4 bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg text-sm font-medium transition">
+        <x-button class="text-xs" variant="warning" @click="$dispatch('open-edit-task-modal', { id: {{ $task->id }} })">
             Edit
-        </button>
-        <button
-            class="flex-1 py-2 px-3 bg-red-500 hover:bg-red-600 text-white rounded-lg text-xs font-semibold transition shadow-sm"
+        </x-button>
+
+        <x-button class="text-xs" variant="danger" wire:confirm="Are you sure you want to delete this?"
             wire:click="delete({{ $task->id }})" wire:loading.attr="disabled" wire:target="delete({{ $task->id }})">
             <span wire:loading.remove wire:target="delete({{ $task->id }})">Delete</span>
             <span wire:loading.inline wire:target="delete({{ $task->id }})">Deleting...</span>
-        </button>
+        </x-button>
+
     </div>
 </div>
