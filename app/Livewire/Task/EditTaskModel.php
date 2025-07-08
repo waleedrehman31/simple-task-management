@@ -4,9 +4,9 @@ namespace App\Livewire\Task;
 
 use App\Models\Tag;
 use App\Models\Task;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
-use Illuminate\Support\Facades\Log;
 
 class EditTaskModel extends Component
 {
@@ -43,11 +43,10 @@ class EditTaskModel extends Component
             $this->dispatch('task-updated');
             $this->dispatch('refresh-task-list');
         } catch (\Exception $e) {
-            Log::error('Task updating failed: ' . $e->getMessage());
+            Log::error('Task updating failed: '.$e->getMessage());
             session()->flash('error', 'Error updating task.');
         }
     }
-
 
     public function render()
     {

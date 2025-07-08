@@ -4,10 +4,10 @@ namespace App\Livewire\Task;
 
 use App\Jobs\NotifyTaskComplete;
 use App\Models\Task;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
-use Illuminate\Support\Facades\Log;
 use Livewire\WithPagination;
 
 #[Title('Tasks List')]
@@ -18,22 +18,25 @@ class TaskList extends Component
     protected $paginationTheme = 'tailwind';
 
     public $search = '';
+
     public $statusFilter = '';
+
     public $sortOrder = 'desc';
 
     public function updatedSearch()
     {
         $this->resetPage();
     }
+
     public function updatedstatusFilter()
     {
         $this->resetPage();
     }
+
     public function updatedsortOrder()
     {
         $this->resetPage();
     }
-
 
     public function markAsComplete(Task $task)
     {
@@ -45,7 +48,7 @@ class TaskList extends Component
             NotifyTaskComplete::dispatch($task)->delay(now()->addSeconds(2));
             session()->flash('success', 'Task completed successfully.');
         } catch (\Exception $e) {
-            Log::error('Task completion failed: ' . $e->getMessage());
+            Log::error('Task completion failed: '.$e->getMessage());
             session()->flash('error', 'Error completing task.');
         }
     }
@@ -56,7 +59,7 @@ class TaskList extends Component
             $task->delete();
             session()->flash('success', 'Task deleted successfully.');
         } catch (\Exception $e) {
-            Log::error('Task deletion failed: ' . $e->getMessage());
+            Log::error('Task deletion failed: '.$e->getMessage());
             session()->flash('error', 'Error deleting task.');
         }
     }

@@ -14,7 +14,9 @@ class ImportTasksForm extends Component
 
     #[Validate('required|file|mimes:csv,xlsx,xls')]
     public $file;
+
     public $successMessage = '';
+
     public $errorMessage = '';
 
     public function import()
@@ -27,10 +29,11 @@ class ImportTasksForm extends Component
             $this->reset('file');
             $this->dispatch('refresh-task-list');
         } catch (\Exception $e) {
-            logger()->error('Task import error: ' . $e->getMessage());
+            logger()->error('Task import error: '.$e->getMessage());
             $this->errorMessage = 'Failed to import tasks. Please check your file format.';
         }
     }
+
     public function render()
     {
         return view('livewire.task.import-tasks-form');
