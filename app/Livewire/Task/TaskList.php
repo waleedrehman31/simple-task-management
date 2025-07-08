@@ -3,6 +3,7 @@
 namespace App\Livewire\Task;
 
 use App\Models\Task;
+use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -53,7 +54,7 @@ class TaskList extends Component
 
     public function getTasks()
     {
-        $this->tasks = Task::all();
+        $this->tasks = Task::orderBy('created_at', $this->sortOrder)->get();
     }
 
     public function markAsComplete(Task $task)
@@ -71,6 +72,7 @@ class TaskList extends Component
         $this->getTasks();
     }
 
+    #[On('task-created')]
     public function render()
     {
         return view('livewire.task.task-list');

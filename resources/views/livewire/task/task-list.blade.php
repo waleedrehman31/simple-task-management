@@ -16,10 +16,7 @@
             </select>
         </div>
     </div>
-    <button
-        class="mb-6 py-3 px-6 bg-blue-600 hover:bg-blue-700 rounded-xl text-white font-semibold shadow-md transition">
-        + Create Task
-    </button>
+    <livewire:task.create-task-form />
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         @forelse ($tasks as $task)
