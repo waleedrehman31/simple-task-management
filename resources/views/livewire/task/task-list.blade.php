@@ -35,6 +35,13 @@
                 <option value="desc">Sort: Latest</option>
                 <option value="asc">Sort: Oldest</option>
             </select>
+            <select wire:model.live="tagFilter"
+                class="py-2 px-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm w-full">
+                <option value="">All Tags</option>
+                @foreach ($tags as $tag)
+                <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 
