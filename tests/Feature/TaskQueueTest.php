@@ -3,8 +3,8 @@
 use App\Jobs\NotifyTaskComplete;
 use App\Models\Task;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Queue;
 
 uses(RefreshDatabase::class);
 

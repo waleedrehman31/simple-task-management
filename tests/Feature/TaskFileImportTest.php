@@ -2,9 +2,9 @@
 
 use App\Livewire\Task\ImportTasksForm;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Livewire\Livewire;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use Livewire\Livewire;
 
 uses(RefreshDatabase::class);
 
@@ -31,7 +31,7 @@ it('shows error for invalid file type', function () {
 });
 
 it('shows error for empty file', function () {
-    $file = UploadedFile::fake()->createWithContent('empty.csv', "");
+    $file = UploadedFile::fake()->createWithContent('empty.csv', '');
 
     Livewire::test(ImportTasksForm::class)
         ->set('file', $file)
