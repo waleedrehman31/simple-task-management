@@ -9,9 +9,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body>
+<body class="font-sans antialiased">
     <x-layouts.partials.navbar />
-    {{ $slot }}
+    <div class="relative flex flex-col items-center">
+        <div class="relative w-full max-w-2xl lg:max-w-7xl">
+            <main class="mt-6">{{ $slot }}</main>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </body>
 

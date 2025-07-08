@@ -17,4 +17,9 @@ class Task extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+
+    public function getStatusAttribute(): String
+    {
+        return $this->is_completed ? 'Completed' : "In Complete";
+    }
 }
