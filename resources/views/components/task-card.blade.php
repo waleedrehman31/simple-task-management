@@ -31,9 +31,11 @@
     <div class="flex flex-wrap gap-2 mt-5">
 
         @if (!$task->is_completed)
-        <x-button class="text-xs" variant="success" wire:click="markAsComplete({{ $task->id }})"
+        <x-button class="flex-1 text-xs" variant="success" wire:click="markAsComplete({{ $task->id }})"
             wire:loading.attr="disabled" wire:target="markAsComplete({{ $task->id }})">
-            <span wire:loading.remove wire:target="markAsComplete({{ $task->id }})">Mark Complete</span>
+            <span wire:loading.remove wire:target="markAsComplete({{ $task->id }})">
+                <i class="fa-solid fa-square-check me-1"></i> Mark Complete
+            </span>
             <span wire:loading.inline wire:target="markAsComplete({{ $task->id }})">Marking...</span>
         </x-button>
         @else
@@ -44,12 +46,14 @@
         @endif
 
         <x-button class="text-xs" variant="warning" @click="$dispatch('open-edit-task-modal', { id: {{ $task->id }} })">
-            Edit
+            <i class="fa-solid fa-pencil me-1"></i> Edit
         </x-button>
 
         <x-button class="text-xs" variant="danger" wire:confirm="Are you sure you want to delete this?"
             wire:click="delete({{ $task->id }})" wire:loading.attr="disabled" wire:target="delete({{ $task->id }})">
-            <span wire:loading.remove wire:target="delete({{ $task->id }})">Delete</span>
+            <span wire:loading.remove wire:target="delete({{ $task->id }})">
+                <i class="fa-solid fa-trash-can me-1"></i> Delete
+            </span>
             <span wire:loading.inline wire:target="delete({{ $task->id }})">Deleting...</span>
         </x-button>
 

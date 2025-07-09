@@ -1,6 +1,6 @@
 <div x-data="{ open: false }" @task-created.window="open = false" class="relative">
 
-    <x-button @click="open=true">+ Create Task</x-button>
+    <x-button @click="open=true"><i class="fa-solid fa-plus me-2"></i> Create Task</x-button>
 
     <div x-show="open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
         <div @click.outside="open = false"

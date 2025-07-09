@@ -1,6 +1,6 @@
 <div x-data="{ open: false, showSuccess: false, showError: false }" @task-imported.window="open = false">
 
-    <x-button @click="open=true">Import Tasks</x-button>
+    <x-button @click="open=true"><i class="fa-solid fa-file-import me-2"></i> Import Tasks</x-button>
 
     <div x-show="open" x-cloak class="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
         <div @click.outside="open = false"
