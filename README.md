@@ -100,9 +100,3 @@ All feature tests are in `tests/Feature/`
 
 -   **Code Formatting:** `./vendor/bin/pint --parallel`
 -   **Tests:** `php artisan test --testsuite=Feature`
-
----
-
-## Author
-
-Developed by **Waleed Ur Rehman**
