@@ -4,9 +4,9 @@ namespace App\Imports;
 
 use App\Models\Tag;
 use App\Models\Task;
+use Illuminate\Support\Facades\Log;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Illuminate\Support\Facades\Log;
 
 class TasksImport implements ToModel, WithHeadingRow
 {
@@ -28,7 +28,7 @@ class TasksImport implements ToModel, WithHeadingRow
 
             if (isset($row['tags'])) {
                 $tags = collect(explode(',', $row['tags']))
-                    ->map(fn($tag) => trim($tag))
+                    ->map(fn ($tag) => trim($tag))
                     ->filter()
                     ->unique();
 
@@ -40,7 +40,7 @@ class TasksImport implements ToModel, WithHeadingRow
 
             return $task;
         } catch (\Exception $e) {
-            Log::error('Task import error: ' . $e->getMessage());
+            Log::error('Task import error: '.$e->getMessage());
 
             return null;
         }

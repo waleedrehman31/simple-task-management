@@ -28,7 +28,7 @@ class ImportTasksForm extends Component
             $this->dispatch('refresh-task-list');
             $this->reset('file');
         } catch (\Exception $e) {
-            logger()->error('Task import error: ' . $e->getMessage());
+            logger()->error('Task import error: '.$e->getMessage());
             $this->errorMessage = 'Failed to import tasks. Please check your file format.';
         }
     }

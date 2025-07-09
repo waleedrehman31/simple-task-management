@@ -31,7 +31,7 @@ class NotifyTaskComplete implements ShouldQueue
         // Simulate the email sending
         sleep(5);
         if ($this->task) {
-            Log::info("Task #{$this->task->id} marked as completed by job at " . $this->task->completed_at);
+            Log::info("Task #{$this->task->id} marked as completed by job at ".$this->task->completed_at);
         }
     }
 }
