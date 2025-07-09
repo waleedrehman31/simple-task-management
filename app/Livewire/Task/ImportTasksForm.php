@@ -22,14 +22,13 @@ class ImportTasksForm extends Component
     public function import()
     {
         $this->validate();
-
         try {
             Excel::import(new TasksImport, $this->file->getRealPath());
             $this->successMessage = 'Tasks imported successfully!';
-            $this->reset('file');
             $this->dispatch('refresh-task-list');
+            $this->reset('file');
         } catch (\Exception $e) {
-            logger()->error('Task import error: '.$e->getMessage());
+            logger()->error('Task import error: ' . $e->getMessage());
             $this->errorMessage = 'Failed to import tasks. Please check your file format.';
         }
     }

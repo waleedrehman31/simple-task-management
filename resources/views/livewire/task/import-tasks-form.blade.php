@@ -10,14 +10,14 @@
 
             <form wire:submit.prevent="import" class="space-y-4">
 
-                <x-form-input type="file" model="file" />
+                <x-form-input label="Upload File" type="file" model="file" />
 
                 <div class="flex justify-end gap-3">
 
                     <x-button @click="open=false" variant="light">
                         Cancel </x-button>
 
-                    <x-button wire:click="save" type="submit">
+                    <x-button wire:click="import" type="submit">
                         <span wire:loading.remove wire:target="import">Import Tasks</span>
                         <span wire:loading wire:target="import" class="animate-pulse">Importing...</span>
                     </x-button>

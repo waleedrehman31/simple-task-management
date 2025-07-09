@@ -8,11 +8,13 @@
 
             <div class="space-y-4">
 
-                <x-form-input type="text" model="title" />
+                <x-form-input label="Task Title" type="text" model="title" />
 
-                <x-form-textarea model="description" placeholder="Task Description (optional)" />
+                <x-form-textarea label="Task Description" model="description"
+                    placeholder="Task Description (optional)" />
 
-                <x-form-select placeholder="" model="selectedTags" :options="$tags" multiple height="8rem" />
+                <x-form-select label="Tags" placeholder="" model="selectedTags" :options="$tags" multiple
+                    height="8rem" />
 
             </div>
 

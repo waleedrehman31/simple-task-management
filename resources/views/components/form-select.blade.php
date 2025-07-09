@@ -3,10 +3,12 @@
 'options' => [],
 'multiple' => false,
 'placeholder' => '',
-'height' => 'auto'
+'height' => 'auto',
+'label'=> '',
 ])
 
 <div>
+    <label for="{{ $label }}">{{ $label }}</label>
     <select wire:model="{{ $model }}" @if($multiple) multiple @endif {{ $attributes->merge(['class' => 'w-full py-2 px-3
         border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none shadow-sm']) }}
         style="height: {{ $height }}"

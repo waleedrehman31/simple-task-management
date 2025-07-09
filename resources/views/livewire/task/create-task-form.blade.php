@@ -10,11 +10,12 @@
 
             <div class="space-y-4">
 
-                <x-form-input model="title" placeholder="Task Title" />
+                <x-form-input label="Task Title" model="title" placeholder="Task Title" />
 
-                <x-form-textarea model="description" placeholder="Task Description (optional)" />
+                <x-form-textarea label="Task Description" model="description"
+                    placeholder="Task Description (optional)" />
 
-                <x-form-select model="selectedTags" :options="$tags" multiple height="8rem" />
+                <x-form-select label="Tags" model="selectedTags" :options="$tags" multiple height="8rem" />
 
             </div>
             <div class="flex justify-end gap-3">
