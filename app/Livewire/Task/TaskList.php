@@ -56,7 +56,7 @@ class TaskList extends Component
             NotifyTaskComplete::dispatch($task)->delay(now()->addSeconds(2));
             session()->flash('success', 'Task completed successfully.');
         } catch (\Exception $e) {
-            Log::error('Task completion failed: '.$e->getMessage());
+            Log::error('Task completion failed: ' . $e->getMessage());
             session()->flash('error', 'Error completing task.');
         }
     }
@@ -67,7 +67,7 @@ class TaskList extends Component
             $task->delete();
             session()->flash('success', 'Task deleted successfully.');
         } catch (\Exception $e) {
-            Log::error('Task deletion failed: '.$e->getMessage());
+            Log::error('Task deletion failed: ' . $e->getMessage());
             session()->flash('error', 'Error deleting task.');
         }
     }

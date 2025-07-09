@@ -12,7 +12,7 @@ $styles = [
 <div x-data="{ show: true }" x-show="show" x-transition
     class="mb-4 p-4 rounded-lg flex justify-between items-center {{ $styles[$type] }}">
     <span>{{ $message }}</span>
-    <button @click="show = false" class="font-bold hover:opacity-70">
+    <button @click="show=false" class="font-bold hover:opacity-70">
         &times;
     </button>
 </div>
