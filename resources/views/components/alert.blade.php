@@ -9,7 +9,7 @@ $styles = [
 ];
 @endphp
 
-<div x-data="{ show: true }" x-show="show" x-transition
+<div x-data="{ show: true }" x-show="show" x-transition x-cloak
     class="mb-4 p-4 rounded-lg flex justify-between items-center {{ $styles[$type] }}">
     <span>{{ $message }}</span>
     <button @click="show=false" class="font-bold hover:opacity-70">

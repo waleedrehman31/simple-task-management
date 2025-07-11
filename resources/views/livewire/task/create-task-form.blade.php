@@ -15,6 +15,9 @@
                 <x-form-textarea label="Task Description" model="description"
                     placeholder="Task Description (optional)" />
 
+                <x-form-input type="date" label="Start Date" model="startDate" placeholder="Start Date" />
+                <x-form-input type="date" label="End Date" model="endDate" placeholder="End Date" />
+
                 <x-form-select label="Tags" model="selectedTags" :options="$tags" multiple height="8rem" />
 
             </div>

@@ -15,6 +15,20 @@
             </span>
         </p>
 
+        <p class="text-sm mb-3">
+            <span class="font-medium text-gray-500">Start Date:</span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold">
+                {{ $task->start_date }}
+            </span>
+        </p>
+
+        <p class="text-sm mb-3">
+            <span class="font-medium text-gray-500">Start Date:</span>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold">
+                {{ $task->end_date }}
+            </span>
+        </p>
+
         <div class="flex flex-wrap gap-2 mt-3">
             @forelse ($task->tags as $tag)
             <span

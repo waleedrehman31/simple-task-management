@@ -16,6 +16,13 @@ class CreateTaskForm extends Component
     #[Validate('nullable|string')]
     public $description;
 
+
+    #[Validate('nullable|date')]
+    public $startDate;
+
+    #[Validate('nullable|date|after:start_date')]
+    public $endDate;
+
     #[Validate('array')]
     public $selectedTags = [];
 
